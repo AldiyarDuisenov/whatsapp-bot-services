@@ -1,0 +1,58 @@
+hr {
+  margin: 5px 0;
+}
+
+.bot-init {
+  height: 62px;
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+.bot-init p {
+  margin: 0;
+}
+
+.bot-init label {
+  display: block;
+  color: #777;
+  font-size: 12px;
+}
+
+.get-message {
+  text-align: center;
+}
+
+.get-message p {
+  font-size: 12px;
+  margin: 0;
+}
+
+.message-option p {
+  font-size: 10px;
+  margin: 0;
+}
+
+.save-db p {
+  font-size: 10px;
+  margin: 0;
+}
+
+.manager-init {
+  height: 90px;
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+.manager-init p {
+  margin: 0;
+}
+
+.manager-init label {
+  display: block;
+  color: #777;
+  font-size: 12px;
+}
