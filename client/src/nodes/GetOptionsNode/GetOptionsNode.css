@@ -1,0 +1,12 @@
+.message-option {
+  text-align: center;
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+.message-option p {
+  font-size: 10px;
+  margin: 0 5px;
+}

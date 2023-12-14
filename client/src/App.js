@@ -10,3 +10,13 @@ function App() {
 }
 
 export default App;
+
+/*
+const a = async () => {console.log('a')}
+const s = async () => {console.log('s')}
+
+const functionMap = {
+  's': s,
+  'a': a
+};
+*/

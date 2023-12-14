@@ -1,0 +1,12 @@
+.save-db {
+  text-align: center;
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+.save-db p {
+  font-size: 12px;
+  margin: 0;
+}

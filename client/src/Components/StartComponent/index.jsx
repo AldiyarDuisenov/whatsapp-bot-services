@@ -1,35 +1,38 @@
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { setLaunch } from "../../redux/slices/botNumSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { setQrcode } from "../../redux/slices/bot";
 import "./StartModule.css";
 import axios from "axios";
 
 function Start() {
   const dispatch = useDispatch();
-  const phoneNumber = useSelector((state) => state.botNumSlice.phoneNumber);
+  const botNumber = useSelector((state) => state.botNumSlice.botNumber);
   const managers = useSelector((state) => state.botNumSlice.managers);
+  const url = useSelector((state) => state.botNumSlice.url);
+  const botFunctions = useSelector((state) => state.botNumSlice.botFunctions);
 
-  const url = "http://localhost:8080/bot";
-
-  const postData = async () => {
-    if (
-      phoneNumber &&
-      Object.keys(managers).length &&
-      Object.values(managers).some((e) => e)
-    ) {
-      dispatch(setLaunch(true));
+  const startBot = async () => {
+    alert("Бот скоро будет запущен");
+    if (botNumber && managers) {
       try {
-        const response = await axios.post(url, {
-          botNumber: phoneNumber,
-          managers: Object.values(managers),
+        const response = await axios.post(`${url}/startbot`, {
+          botNumber: botNumber,
+          botFunctions: botFunctions,
         });
-        console.log("Ответ сервера:", response.data);
+        if (response.data === "Бот запущен") {
+          alert(response.data);
+        } else {
+          dispatch(setQrcode(response.data));
+        }
       } catch (error) {
         console.log("Ошибка запроса:", error);
       }
     }
   };
-  return <button onClick={() => postData()}>Start</button>;
+  return (
+    <button className="start" onClick={() => startBot()}>
+      Start
+    </button>
+  );
 }
 
 export default Start;

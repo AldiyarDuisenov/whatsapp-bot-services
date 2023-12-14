@@ -1,0 +1,12 @@
+.get-message {
+  text-align: center;
+  border: 1px solid #eee;
+  padding: 5px;
+  border-radius: 5px;
+  background: white;
+}
+
+.get-message p {
+  font-size: 12px;
+  margin: 0;
+}

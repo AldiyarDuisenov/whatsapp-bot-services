@@ -1,61 +1,17 @@
 import { MarkerType } from "reactflow";
+import botInitNode from "./BotInitNode/node.jsx";
+import managerInitNode from "./ManagerInitNode/node.jsx";
+import getMessageNode from "./GetMessageNode/node.jsx";
+import getOptionsNode from "./GetOptionsNode/node.jsx";
+import saveToMongoNode from "./SaveToMongoNode/node.jsx";
+import "../css/nodes.css";
 
 export const initialNodes = [
-  {
-    id: "1",
-    type: "botInit",
-    position: { x: 0, y: 0 },
-    data: { value: 123 },
-  },
-  {
-    id: "2",
-    data: {
-      label: (
-        <div className="get-message">
-          <p>Ожидание сообщения</p>
-          <hr />
-          <p>"Консультация"</p>
-        </div>
-      ),
-    },
-    position: { x: 15, y: 100 },
-  },
-  {
-    id: "3",
-    role: "getResponceType",
-    data: {
-      label: (
-        <div className="message-option">
-          <p>Выбор метода ответа</p>
-          <hr />
-          <div style={{ display: "flex" }}>
-            <p>"Напишите мне"</p>
-            <p>"Позвоните мне"</p>
-          </div>
-        </div>
-      ),
-    },
-    position: { x: 15, y: 200 },
-  },
-  {
-    id: "4",
-    role: "saveToDB",
-    data: {
-      label: (
-        <div className="save-db">
-          <p>Сохранить в базу данных</p>
-          <hr />
-          <p>"Mongo DB"</p>
-        </div>
-      ),
-    },
-    position: { x: 15, y: 300 },
-  },
-  {
-    id: "5",
-    type: "managerInit",
-    position: { x: 0, y: 400 },
-  },
+  botInitNode,
+  getMessageNode,
+  getOptionsNode,
+  managerInitNode,
+  saveToMongoNode,
 ];
 
 export const initialEdges = [

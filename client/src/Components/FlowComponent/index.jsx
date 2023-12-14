@@ -1,47 +1,52 @@
-import { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-
+import { useCallback, useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addFunctions } from "../../redux/slices/bot";
 import ReactFlow, {
-  addEdge,
   applyEdgeChanges,
   applyNodeChanges,
   Panel,
 } from "reactflow";
 import "reactflow/dist/style.css";
-
 import BotInitNode from "../../nodes/BotInitNode";
 import ManagerInitNode from "../../nodes/ManagerInitNode";
-
-import "../../css/nodes.css";
-
+import GetMessageNode from "../../nodes/GetMessageNode";
+import GetOptionsNode from "../../nodes/GetOptionsNode";
+import SaveToMongoNode from "../../nodes/SaveToMongoNode";
 import Start from "../StartComponent";
 import Confirm from "../ConfirmComponent";
-
 import { initialNodes, initialEdges } from "../../nodes/initial-elements";
 
 const rfStyle = {
   backgroundColor: "#B8CEFF",
 };
 
-// we define the nodeTypes outside of the component to prevent re-renderings
-// you could also use useMemo inside the component
-const nodeTypes = { botInit: BotInitNode, managerInit: ManagerInitNode };
+const nodeTypes = {
+  botInit: BotInitNode,
+  managerInit: ManagerInitNode,
+  getMessage: GetMessageNode,
+  getOptions: GetOptionsNode,
+  saveToMongo: SaveToMongoNode,
+};
 
 function Flow() {
-  const launch = useSelector((state) => state.botNumSlice.launch);
+  const qrcode = useSelector((state) => state.botNumSlice.qrcode);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
+  const dispatch = useDispatch();
+
+  // Move the dispatch to useEffect to avoid update loop
+  useEffect(() => {
+    const botFunctionsArray = initialNodes.map((node) => node.function);
+    dispatch(addFunctions(botFunctionsArray));
+  }, [dispatch]);
 
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [setNodes]
   );
+
   const onEdgesChange = useCallback(
     (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    [setEdges]
-  );
-  const onConnect = useCallback(
-    (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
   );
 
@@ -52,7 +57,6 @@ function Flow() {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
         style={rfStyle}
@@ -61,7 +65,7 @@ function Flow() {
           <Start />
         </Panel>
       </ReactFlow>
-      {launch && <Confirm />}
+      {qrcode !== "" ? <Confirm /> : null}
     </div>
   );
 }

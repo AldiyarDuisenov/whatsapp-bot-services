@@ -15,25 +15,21 @@ mongoose
   .catch((err) => console.log("DB ERROR", err));
 
 const app = express();
-startBot();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.post("/startbot", startBot);
 
 app.get("/", (req, res) => {
   res.send("Connected!");
 });
 
-export function sendQR(qr) {
-  app.get("/qr", (req, res) => {
-    res.json(qr);
-  });
-}
-
 app.post("/message", MessageController.createMessage);
 app.get("/message/:id", MessageController.getMessage);
 
 app.post("/bot", botValidation, BotController.createBot);
+app.post("/setmanagers", botValidation, BotController.setManager);
 app.get("/bot/:id", BotController.getBot);
 
 app.listen(8080, (err) => {
